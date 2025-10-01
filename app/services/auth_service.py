@@ -50,31 +50,35 @@ class AuthService:
             return None, str(e)
 
     async def get_current_user(self, token: str) -> Optional[Dict]:
-        """Get current user from token"""
+        """Get current user from JWT token"""
         try:
-            # Verify the token with Supabase
-            user = self.supabase.auth.get_user(token)
-            if not user:
+            # Verify and decode the JWT token
+            from app.core.security import verify_token
+            payload = verify_token(token)
+
+            if not payload or "sub" not in payload:
                 return None
-                
+
+            user_id = payload["sub"]
+
             # Get user data from our database
             response = self.supabase.table("anonymous_users")\
                 .select("*")\
-                .eq("id", user.id)\
+                .eq("id", user_id)\
                 .single()\
                 .execute()
-                
+
             if not response.data:
                 return None
-                
+
             # Update last activity
             self.supabase.table("anonymous_users")\
                 .update({"last_activity": datetime.utcnow().isoformat()})\
-                .eq("id", user.id)\
+                .eq("id", user_id)\
                 .execute()
-                
+
             return response.data
-            
+
         except Exception as e:
             print(f"Error getting current user: {e}")
             return None

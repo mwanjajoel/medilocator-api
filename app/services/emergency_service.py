@@ -54,7 +54,7 @@ class EmergencyService:
                 "created_at": datetime.utcnow().isoformat()
             }
             
-            response = supabase.table("conversation_logs").insert(conversation_log).execute()
+            response = supabase.table("conversation_messages").insert(conversation_log).execute()
             return response.data[0] if response.data else None
         except Exception as e:
             print(f"Error logging conversation: {e}")
