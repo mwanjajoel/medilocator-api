@@ -13,7 +13,7 @@ A FastAPI-based backend service for Medilocator, providing chat-based emergency 
 ## Tech Stack
 
 - **Framework**: FastAPI
-- **Database**: (To be configured)
+- **Database**: Postgres, based on Supabase
 - **Authentication**: JWT (JSON Web Tokens)
 - **API Documentation**: Auto-generated with Swagger UI and ReDoc
 
