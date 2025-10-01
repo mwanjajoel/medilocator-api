@@ -1,6 +1,5 @@
-import os
-from pydantic import BaseSettings
-from typing import Optional
+from pydantic_settings import BaseSettings
+from typing import Optional, List
 
 class Settings(BaseSettings):
     # API Settings
@@ -20,9 +19,10 @@ class Settings(BaseSettings):
     openai_api_key: str
     
     # CORS
-    cors_origins: list = ["*"]
+    cors_origins: List[str] = ["*"]
     
     class Config:
         env_file = ".env"
+        env_file_encoding = 'utf-8'
 
 settings = Settings()

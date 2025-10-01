@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from app.services.auth_service import auth_service
 from app.models.schemas import AnonymousUserCreate, Token
 
