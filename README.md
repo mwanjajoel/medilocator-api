@@ -140,12 +140,3 @@ pytest
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
-
-[Add your license here]
-
-## Contact
-
-[Your Name] - [Your Email]
-
-Project Link: [https://github.com/mwanjajoel/medilocator-api](https://github.com/mwanjajoel/medilocator-api)
