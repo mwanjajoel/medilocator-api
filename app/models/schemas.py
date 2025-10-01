@@ -17,18 +17,17 @@ class ChatResponse(BaseModel):
     dispatch_triggered: bool = False
     requires_location: bool = False
 
-class AnonymousUserCreate(BaseModel):
-    device_id: Optional[str] = None
-
 class AnonymousUser(BaseModel):
+    """Anonymous user model"""
     id: str
-    device_id: str
-    created_at: str
+    created_at: datetime
+    last_activity: datetime
     is_active: bool
 
 class Token(BaseModel):
+    """Authentication token response model"""
     access_token: str
-    token_type: str
+    token_type: str = "bearer"
     user_id: str
 
 class EmergencyDispatch(BaseModel):
@@ -39,19 +38,22 @@ class EmergencyDispatch(BaseModel):
     user_id: str
 
 class EmergencyLog(BaseModel):
+    """Emergency log model"""
     id: str
-    user_id: str
-    location: str
-    incident: str
-    victim_count: str
-    user_reported_status: str
+    anonymous_user_id: str
+    location: dict
+    incident_type: str
+    description: Optional[str] = None
+    severity: Optional[int] = None
+    status: str = "reported"
     created_at: datetime
-    status: str
+    updated_at: datetime
 
-class ConversationLog(BaseModel):
+class ConversationMessage(BaseModel):
+    """Conversation message model"""
     id: str
-    user_id: str
-    user_message: str
-    assistant_reply: str
-    dispatch_triggered: bool
+    anonymous_user_id: str
+    emergency_incident_id: Optional[str] = None
+    message_type: str  # 'user_message', 'assistant_reply', 'system_alert'
+    content: str
     created_at: datetime
