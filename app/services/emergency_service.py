@@ -17,7 +17,7 @@ class EmergencyService:
                 "status": "dispatched"
             }
             
-            response = supabase.table("emergency_logs").insert(emergency_log).execute()
+            response = supabase.table("emergency_incidents").insert(emergency_log).execute()
             return response.data[0] if response.data else None
         except Exception as e:
             print(f"Error logging emergency: {e}")
@@ -27,9 +27,9 @@ class EmergencyService:
     def get_user_emergencies(user_id: str) -> List[Dict]:
         """Get emergencies for a specific user"""
         try:
-            response = supabase.table("emergency_logs")\
+            response = supabase.table("emergency_incidents")\
                 .select("*")\
-                .eq("user_id", user_id)\
+                .eq("anonymous_user_id", user_id)\
                 .order("created_at", desc=True)\
                 .execute()
             return response.data
