@@ -1,13 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 from app.core.config import settings
 from app.api import api_router
 
-# Initialize FastAPI app
 app = FastAPI(
     title=settings.project_name,
-    version=settings.api_version
+    version=settings.api_version,
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json"
 )
 
 # Configure CORS
@@ -18,7 +19,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 # Include API routes
 app.include_router(api_router, prefix="/api/v1")

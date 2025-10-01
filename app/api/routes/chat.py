@@ -4,12 +4,13 @@ from app.services.emergency_service import emergency_service
 from app.api.dependencies import get_current_user
 from app.models.schemas import ChatRequest, ChatResponse
 
+# Remove dependencies from router level
 router = APIRouter(prefix="/chat", tags=["chat"])
 
 @router.post("", response_model=ChatResponse)
 async def chat_with_medilocator(
     request: ChatRequest,
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(get_current_user)  # Keep only endpoint-level dependency
 ):
     """Main endpoint for the Medilocator chat interface"""
     try:
