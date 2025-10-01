@@ -1,5 +1,7 @@
 from fastapi import APIRouter
 from app.core.config import settings
+from app.api.dependencies import get_current_user
+from app.services.emergency_service import emergency_service
 
 router = APIRouter(tags=["health"])
 
